@@ -22,7 +22,6 @@ namespace Test
         static char[,] field = new char[(int)GAME_PARAMS.LEVEL_ROWS + (int)GAME_PARAMS.ROWS, (int)GAME_PARAMS.COLUMNS];
         static char[] plane = new char[(int)GAME_PARAMS.COLUMNS];
         static int planepos = (int)GAME_PARAMS.COLUMNS / 2;
-        static int rock = 0;
 
         static void update_plane_position()
         {
@@ -74,10 +73,7 @@ namespace Test
 
             for (int row = (int)GAME_PARAMS.ROWS; row < (int)GAME_PARAMS.LEVEL_ROWS + (int)GAME_PARAMS.ROWS; row++) // Generate level
             {
-                rock = rndrock.Next(0, (int)GAME_PARAMS.COLUMNS);
-
-                for (int col = 0; col < (int)GAME_PARAMS.COLUMNS; col++)
-                    field[row, rock] = '*';
+                field[row, rndrock.Next(0, (int)GAME_PARAMS.COLUMNS)] = '*';
             }
             for (int row = 0; row < (int)GAME_PARAMS.LEVEL_ROWS; row++) // Screen view " falling rocks"
             {
@@ -94,7 +90,7 @@ namespace Test
                     Console.WriteLine('|');
                 }
 
-                if (planepos == rock)
+                //if (planepos == rock)
                 {
                     //Console.WriteLine("boom");
                 }
