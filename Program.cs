@@ -70,26 +70,14 @@ namespace Test
 
             Console.WriteLine("S T A R T");
             Console.CursorVisible = false;
+            Random rndrock = new Random();
 
             for (int row = (int)GAME_PARAMS.ROWS; row < (int)GAME_PARAMS.LEVEL_ROWS + (int)GAME_PARAMS.ROWS; row++) // Generate level
             {
-                int rockcheck = rock;
-                Thread.Sleep(10);
-                Random rndrock = new Random();
                 rock = rndrock.Next(0, (int)GAME_PARAMS.COLUMNS);
 
                 for (int col = 0; col < (int)GAME_PARAMS.COLUMNS; col++)
-                {
-                    if (rock != rockcheck)
-                    {
-                        field[row, rock] = '*';
-                        rocks[rock] = '\0';
-                    }
-                    else
-                    {
-                        field[row, rock] = '\0';
-                    }
-                }
+                    field[row, rock] = '*';
             }
             for (int row = 0; row < (int)GAME_PARAMS.LEVEL_ROWS; row++) // Screen view " falling rocks"
             {
