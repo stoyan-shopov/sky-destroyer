@@ -108,11 +108,14 @@ namespace Test
                     score += 100;
                 else if (field[row, planepos] == '*')
                     lives--;
-                if (lives == 0)
-                    break;
                 score++;
                 update_game_status();
+                if (lives == 0)
+                    break;
             }
+            Console.WriteLine("GAME OVER");
+            Console.WriteLine("your score is: " + score);
+            Console.ReadKey(true);
         }
     }
 } 
