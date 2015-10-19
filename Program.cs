@@ -13,7 +13,7 @@ namespace Test
     {
         enum GAME_PARAMS
         {
-            ROWS = 10,
+            ROWS = 11,
             COLUMNS = 20,
             LEVEL_ROWS = 100,
             LIVES = 3,
@@ -80,7 +80,12 @@ namespace Test
 
             for (int row = (int)GAME_PARAMS.ROWS; row < (int)GAME_PARAMS.LEVEL_ROWS + (int)GAME_PARAMS.ROWS; row++) // Generate level
             {
-                field[row, rndrock.Next(0, (int)GAME_PARAMS.COLUMNS)] = '*';
+                if (rndrock.Next(100) > 80)
+                    field[row, rndrock.Next(0, (int)GAME_PARAMS.COLUMNS)] = '$';
+                else if (rndrock.Next(100) > 95)
+                    field[row, rndrock.Next(0, (int)GAME_PARAMS.COLUMNS)] = 's';
+                else
+                    field[row, rndrock.Next(0, (int)GAME_PARAMS.COLUMNS)] = '*';
             }
             for (int row = 0; row < (int)GAME_PARAMS.LEVEL_ROWS; row++) // Screen view " falling rocks"
             {
@@ -97,8 +102,14 @@ namespace Test
                     Console.WriteLine('|');
                 }
 
-                if (field[row, planepos] == '*')
+                if (field[row, planepos] == '$')
+                    score += 10;
+                else if (field[row, planepos] == 's')
+                    score += 100;
+                else if (field[row, planepos] == '*')
                     lives--;
+                if (lives == 0)
+                    break;
                 score++;
                 update_game_status();
             }
