@@ -80,10 +80,9 @@ namespace Test
                     }
                 }
             }
-            Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1);
             for (int row = 0; row < 99; row++) // Screen view " falling rocks"
             {
-
+                Console.SetCursorPosition(0, 0);
                 Thread.Sleep(500);
                 for (int i = 10; i >= 0; i--)
                 {
@@ -95,7 +94,7 @@ namespace Test
                     Console.WriteLine('|');
                     planeposition();
                 }
-                Thread.Sleep(50);
+
                 plane[planepos] = 'A';
                 Console.Write('|');
                 for (int i = 0; i < 20; i++)
@@ -107,7 +106,6 @@ namespace Test
                 {
                     //Console.WriteLine("boom");
                 }
-                Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 12);
             }
         }
     }
