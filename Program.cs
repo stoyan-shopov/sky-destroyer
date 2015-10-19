@@ -25,6 +25,17 @@ namespace Test
 
         static void update_plane_position()
         {
+            int x = Console.CursorLeft, y = Console.CursorTop;
+
+            Console.SetCursorPosition(0, 10);
+            plane[planepos] = 'A';
+            Console.Write('|');
+            for (int i = 0; i < 20; i++)
+            {
+                Console.Write(plane[i]);
+            }
+            Console.Write('|');
+            Console.SetCursorPosition(x, y);
         }
         static void planeposition()
         {
@@ -32,7 +43,7 @@ namespace Test
             if (Console.KeyAvailable)
             {
                 plane[planepos] = '\0';
-                ConsoleKeyInfo move = Console.ReadKey();
+                ConsoleKeyInfo move = Console.ReadKey(true);
                 if (move.KeyChar == 'a')
                 {
                     planepos -= 1;
@@ -40,7 +51,6 @@ namespace Test
                     {
                         planepos = 1;
                     }
-                    update_plane_position();
                 }
                 if (move.KeyChar == 's')
                 {
@@ -49,16 +59,16 @@ namespace Test
                     {
                         planepos = 19;
                     }
-                    update_plane_position();
                 }
-
             }
+            update_plane_position();
         }
 
         static void Main(string[] args)
         {
 
             Console.WriteLine("S T A R T");
+            Console.CursorVisible = false;
 
             for (int row = 10; row < 100; row++) // Generate level
             {
@@ -95,13 +105,6 @@ namespace Test
                     planeposition();
                 }
 
-                plane[planepos] = 'A';
-                Console.Write('|');
-                for (int i = 0; i < 20; i++)
-                {
-                    Console.Write(plane[i]);
-                }
-                Console.WriteLine('|');
                 if (planepos == rock)
                 {
                     //Console.WriteLine("boom");
