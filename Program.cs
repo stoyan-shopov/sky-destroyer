@@ -5,16 +5,27 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+
 namespace Test
 {
+
     class Program
     {
+        enum GAME_PARAMS
+        {
+            ROWS = 11,
+            COLUMNS = 20,
+        };
+
         static char[] rocks = new char[20];
         static char[,] field = new char[100, 20];
         static char[] plane = new char[20];
         static int planepos = 10;
         static int rock = 0;
 
+        static void update_plane_position()
+        {
+        }
         static void planeposition()
         {
 
@@ -29,6 +40,7 @@ namespace Test
                     {
                         planepos = 1;
                     }
+                    update_plane_position();
                 }
                 if (move.KeyChar == 's')
                 {
@@ -37,6 +49,7 @@ namespace Test
                     {
                         planepos = 19;
                     }
+                    update_plane_position();
                 }
 
             }
@@ -80,19 +93,16 @@ namespace Test
                         Console.Write(field[row + i, col]);
                     }
                     Console.WriteLine('|');
-                    //planeposition();
+                    planeposition();
                 }
-
-                plane[planepos] = 'A';
                 Thread.Sleep(50);
+                plane[planepos] = 'A';
                 Console.Write('|');
                 for (int i = 0; i < 20; i++)
                 {
                     Console.Write(plane[i]);
                 }
                 Console.WriteLine('|');
-                planeposition();
-
                 if (planepos == rock)
                 {
                     //Console.WriteLine("boom");
