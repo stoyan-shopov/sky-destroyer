@@ -16,13 +16,20 @@ namespace Test
             ROWS = 10,
             COLUMNS = 20,
             LEVEL_ROWS = 100,
+            LIVES = 3,
         };
 
         static char[] rocks = new char[(int)GAME_PARAMS.COLUMNS];
         static char[,] field = new char[(int)GAME_PARAMS.LEVEL_ROWS + (int)GAME_PARAMS.ROWS, (int)GAME_PARAMS.COLUMNS];
         static char[] plane = new char[(int)GAME_PARAMS.COLUMNS];
         static int planepos = (int)GAME_PARAMS.COLUMNS / 2;
+        static int lives = (int)GAME_PARAMS.LIVES, score = 0;
 
+        static void update_game_status()
+        {
+            Console.SetCursorPosition(0, (int)GAME_PARAMS.ROWS + 1);
+            Console.WriteLine("lives: " + lives + " : score: " + score);
+        }
         static void update_plane_position()
         {
             int x = Console.CursorLeft, y = Console.CursorTop;
@@ -90,10 +97,10 @@ namespace Test
                     Console.WriteLine('|');
                 }
 
-                //if (planepos == rock)
-                {
-                    //Console.WriteLine("boom");
-                }
+                if (field[row, planepos] == '*')
+                    lives--;
+                score++;
+                update_game_status();
             }
         }
     }
