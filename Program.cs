@@ -13,24 +13,25 @@ namespace Test
     {
         enum GAME_PARAMS
         {
-            ROWS = 11,
+            ROWS = 10,
             COLUMNS = 20,
+            LEVEL_ROWS = 100,
         };
 
-        static char[] rocks = new char[20];
-        static char[,] field = new char[121, 20];
-        static char[] plane = new char[20];
-        static int planepos = 10;
+        static char[] rocks = new char[(int)GAME_PARAMS.COLUMNS];
+        static char[,] field = new char[(int)GAME_PARAMS.LEVEL_ROWS + (int)GAME_PARAMS.ROWS, (int)GAME_PARAMS.COLUMNS];
+        static char[] plane = new char[(int)GAME_PARAMS.COLUMNS];
+        static int planepos = (int)GAME_PARAMS.COLUMNS / 2;
         static int rock = 0;
 
         static void update_plane_position()
         {
             int x = Console.CursorLeft, y = Console.CursorTop;
 
-            Console.SetCursorPosition(0, 10);
+            Console.SetCursorPosition(0, (int)GAME_PARAMS.ROWS);
             plane[planepos] = 'A';
             Console.Write('|');
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < (int)GAME_PARAMS.COLUMNS; i++)
             {
                 Console.Write(plane[i]);
             }
@@ -47,17 +48,17 @@ namespace Test
                 if (move.KeyChar == 'a')
                 {
                     planepos -= 1;
-                    if (planepos < 1)
+                    if (planepos < 0)
                     {
-                        planepos = 1;
+                        planepos = 0;
                     }
                 }
                 if (move.KeyChar == 's')
                 {
                     planepos += 1;
-                    if (planepos > 19)
+                    if (planepos == (int) GAME_PARAMS.COLUMNS)
                     {
-                        planepos = 19;
+                        planepos = (int) GAME_PARAMS.COLUMNS - 1;
                     }
                 }
             }
@@ -70,14 +71,14 @@ namespace Test
             Console.WriteLine("S T A R T");
             Console.CursorVisible = false;
 
-            for (int row = 10; row < 121; row++) // Generate level
+            for (int row = (int)GAME_PARAMS.ROWS; row < (int)GAME_PARAMS.LEVEL_ROWS + (int)GAME_PARAMS.ROWS; row++) // Generate level
             {
                 int rockcheck = rock;
                 Thread.Sleep(10);
                 Random rndrock = new Random();
-                rock = rndrock.Next(0, 20);
+                rock = rndrock.Next(0, (int)GAME_PARAMS.COLUMNS);
 
-                for (int col = 0; col < 20; col++)
+                for (int col = 0; col < (int)GAME_PARAMS.COLUMNS; col++)
                 {
                     if (rock != rockcheck)
                     {
@@ -90,13 +91,13 @@ namespace Test
                     }
                 }
             }
-            for (int row = 0; row < 99; row++) // Screen view " falling rocks"
+            for (int row = 0; row < (int)GAME_PARAMS.LEVEL_ROWS; row++) // Screen view " falling rocks"
             {
                 Console.SetCursorPosition(0, 0);
-                for (int i = 10; i >= 0; i--)
+                for (int i = (int)GAME_PARAMS.ROWS; i >= 0; i--)
                 {
                     Console.Write('|');
-                    for (int col = 0; col < 20; col++)
+                    for (int col = 0; col < (int)GAME_PARAMS.COLUMNS; col++)
                     {
                         Thread.Sleep(1);
                         Console.Write(field[row + i, col]);
