@@ -18,7 +18,7 @@ namespace Test
         };
 
         static char[] rocks = new char[20];
-        static char[,] field = new char[100, 20];
+        static char[,] field = new char[121, 20];
         static char[] plane = new char[20];
         static int planepos = 10;
         static int rock = 0;
@@ -70,7 +70,7 @@ namespace Test
             Console.WriteLine("S T A R T");
             Console.CursorVisible = false;
 
-            for (int row = 10; row < 100; row++) // Generate level
+            for (int row = 10; row < 121; row++) // Generate level
             {
                 int rockcheck = rock;
                 Thread.Sleep(10);
@@ -93,16 +93,16 @@ namespace Test
             for (int row = 0; row < 99; row++) // Screen view " falling rocks"
             {
                 Console.SetCursorPosition(0, 0);
-                Thread.Sleep(500);
                 for (int i = 10; i >= 0; i--)
                 {
                     Console.Write('|');
                     for (int col = 0; col < 20; col++)
                     {
+                        Thread.Sleep(1);
                         Console.Write(field[row + i, col]);
+                        planeposition();
                     }
                     Console.WriteLine('|');
-                    planeposition();
                 }
 
                 if (planepos == rock)
