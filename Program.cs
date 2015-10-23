@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -63,13 +63,56 @@ namespace Test
                 if (move.KeyChar == 's')
                 {
                     planepos += 1;
-                    if (planepos == (int) GAME_PARAMS.COLUMNS)
+                    if (planepos == (int)GAME_PARAMS.COLUMNS)
                     {
-                        planepos = (int) GAME_PARAMS.COLUMNS - 1;
+                        planepos = (int)GAME_PARAMS.COLUMNS - 1;
                     }
                 }
             }
             update_plane_position();
+        }
+
+        static void soundeffects ()
+        {
+            if (field[row, planepos] == '$')
+            {
+                Console.Beep(500, 50);
+            }
+            else if (field[row, planepos] == 's')
+            {
+                Console.Beep(500, 50);
+            }
+            else if (field[row, planepos] == '*')
+            {
+                Console.Beep(1500, 25);
+                Console.Beep(750, 25);
+            }
+        }
+
+        static void starwars ()
+        {
+            do
+	        {
+	            Console.Beep(440, 500);
+                Console.Beep(440, 500);
+                Console.Beep(440, 500);
+                Console.Beep(349, 350);
+                Console.Beep(523, 150);
+                Console.Beep(440, 500);
+                Console.Beep(349, 350);
+                Console.Beep(523, 150);
+                Console.Beep(440, 1000);
+                Console.Beep(659, 500);
+                Console.Beep(659, 500);
+                Console.Beep(659, 500);
+                Console.Beep(698, 350);
+                Console.Beep(523, 150);
+                Console.Beep(415, 500);
+                Console.Beep(349, 350);
+                Console.Beep(523, 150);
+                Console.Beep(440, 1000);
+            } while (!Console.KeyAvailable);
+ 
         }
 
         static void Main(string[] args)
@@ -80,7 +123,7 @@ namespace Test
             Console.WriteLine("   coded by SS & SS");
 
             Console.Write('+');
-            for (int i = 0; i < (int) GAME_PARAMS.COLUMNS; i++ )
+            for (int i = 0; i < (int)GAME_PARAMS.COLUMNS; i++)
                 Console.Write('-');
             Console.WriteLine('+');
             Random rndrock = new Random();
@@ -109,19 +152,31 @@ namespace Test
                     Console.WriteLine('|');
                 }
 
+                soundeffects();
+
                 if (field[row, planepos] == '$')
+                {
                     score += 10;
+                }
                 else if (field[row, planepos] == 's')
+                {
                     score += 100;
+                }
                 else if (field[row, planepos] == '*')
+                {
                     lives--;
+                }
                 score++;
                 update_game_status();
                 if (lives == 0)
+                {
                     break;
+                }
             }
             Console.WriteLine("GAME OVER");
             Console.WriteLine("your score is: " + score);
+            starwars();
+
             Console.ReadKey(true);
         }
     }
